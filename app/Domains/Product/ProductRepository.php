@@ -4,6 +4,7 @@ namespace App\Domains\Product;
 
 use App\Domains\Core\Repository;
 use App\Model\Product;
+use Illuminate\Database\Eloquent\Model;
 
 class ProductRepository extends Repository
 {

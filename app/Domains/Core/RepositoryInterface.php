@@ -121,7 +121,7 @@ interface RepositoryInterface {
      *
      * @return mixed collections from \Illuminate\Database\Eloquent\Model
      */
-    public function getAllWithSortBy(string $relations, string $column, $type = 'asc', array $columns = ['*']);
+    public function getAllWithSortBy(string $relations, string $column, string $type = 'asc', array $columns = ['*']);
 
     /**
      * Function get record data by id from database with the relationship
@@ -176,6 +176,29 @@ interface RepositoryInterface {
     public function paginate(int $limit = null, array $columns = ['*']);
 
     /**
+     * Function to paginate data with paginate() function from eloquent model with spesific conditions and the relationship
+     *
+     * @param array $conditions conditions value, must be 3 data in the array. Ex. ['category_id', '=', '1'] ['name', 'like', '%S%']
+     * @param int $limit of results to return per page
+     * @param array $columns to retrieve spesific column with the objects
+     *
+     * @return mixed collections from \Illuminate\Database\Eloquent\Model
+     */
+    public function paginateBy(array $conditions, int $limit = null, array $columns = ['*']);
+
+    /**
+     * Function to paginate data with paginate() function from eloquent model with spesific sort value
+     *
+     * @param string $column to sorting by spesific column
+     * @param string $type sorting in ascending or descending, the default value is ascending
+     * @param int $limit of results to return per page
+     * @param array $columns to retrieve spesific column with the objects
+     *
+     * @return mixed collections from \Illuminate\Database\Eloquent\Model
+     */
+    public function paginateSortBy(string $column, string $type = 'asc', int $limit = null, array $columns = ['*']);
+
+    /**
      * Function to paginate data with simplePaginate() function from eloquent model
      *
      * @param int $limit of results to return per page
@@ -184,6 +207,29 @@ interface RepositoryInterface {
      * @return mixed collections from \Illuminate\Database\Eloquent\Model
      */
     public function simplePaginate(int $limit = null, array $columns = ['*']);
+
+    /**
+     * Function to paginate data with simplePaginate() function from eloquent model with spesific conditions and the relationship
+     *
+     * @param array $conditions conditions value, must be 3 data in the array. Ex. ['category_id', '=', '1'] ['name', 'like', '%S%']
+     * @param int $limit of results to return per page
+     * @param array $columns to retrieve spesific column with the objects
+     *
+     * @return mixed collections from \Illuminate\Database\Eloquent\Model
+     */
+    public function simplePaginateBy(array $conditions, int $limit = null, array $columns = ['*']);
+
+    /**
+     * Function to paginate data with paginate() function from eloquent model with spesific sort value
+     *
+     * @param string $column to sorting by spesific column
+     * @param string $type sorting in ascending or descending, the default value is ascending
+     * @param int $limit of results to return per page
+     * @param array $columns to retrieve spesific column with the objects
+     *
+     * @return mixed collections from \Illuminate\Database\Eloquent\Model
+     */
+    public function simplePaginateSortBy(string $column, string $type = 'asc', int $limit = null, array $columns = ['*']);
 
     /**
      * Function to insert new data to database

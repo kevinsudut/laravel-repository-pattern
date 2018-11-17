@@ -4,6 +4,7 @@ namespace App\Domains\Core;
 
 use App\Helpers\GUID;
 use Illuminate\Database\Eloquent\Model;
+use App\Domains\Core\Exceptions\FailedArgumentException;
 
 abstract class Repository implements RepositoryInterface {
 
@@ -74,11 +75,17 @@ abstract class Repository implements RepositoryInterface {
 
     public function getAllBy(array $conditions, array $columns = ['*'])
     {
+        if (count($conditions) != 3) {
+            throw new FailedArgumentException("Invalid conditions argument value");
+        }
         return $this->model->where($conditions[0], $conditions[1], $conditions[2])->get($columns);
     }
 
     public function getOneBy(array $conditions, array $columns = ['*'])
     {
+        if (count($conditions) != 3) {
+            throw new FailedArgumentException("Invalid conditions argument value");
+        }
         return $this->model->where($conditions[0], $conditions[1], $conditions[2])->first($columns);
     }
 
@@ -87,7 +94,7 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->with($relations)->get($columns);
     }
 
-    public function getAllWithSortBy(string $relations, string $column, $type = 'asc', array $columns = ['*'])
+    public function getAllWithSortBy(string $relations, string $column, string $type = 'asc', array $columns = ['*'])
     {
         return $this->model->with($relations)->orderBy($column, $type)->get($columns);
     }
@@ -99,11 +106,17 @@ abstract class Repository implements RepositoryInterface {
 
     public function getAllWithBy(string $relations, array $conditions, array $columns = ['*'])
     {
+        if (count($conditions) != 3) {
+            throw new FailedArgumentException("Invalid conditions argument value");
+        }
         return $this->model->with($relations)->where($conditions[0], $conditions[1], $conditions[2])->get($columns);
     }
 
     public function getOneWithBy(string $relations, array $conditions, array $columns = ['*'])
     {
+        if (count($conditions) != 3) {
+            throw new FailedArgumentException("Invalid conditions argument value");
+        }
         return $this->model->with($relations)->where($conditions[0], $conditions[1], $conditions[2])->first($columns);
     }
 
@@ -117,9 +130,35 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->paginate($limit, $columns);
     }
 
+    public function paginateBy(array $conditions, int $limit = null, array $columns = ['*'])
+    {
+        if (count($conditions) != 3) {
+            throw new FailedArgumentException("Invalid conditions argument value");
+        }
+        return $this->model->where($conditions[0], $conditions[1], $conditions[2])->paginate($limit, $columns);
+    }
+
+    public function paginateSortBy(string $column, string $type = 'asc', int $limit = null, array $columns = ['*'])
+    {
+        return $this->model->orderBy($column, $type)->paginate($limit, $columns);
+    }
+
     public function simplePaginate($limit = null, array $columns = ['*'])
     {
         return $this->model->simplePaginate($limit, $columns);
+    }
+
+    public function simplePaginateBy(array $conditions, int $limit = null, array $columns = ['*'])
+    {
+        if (count($conditions) != 3) {
+            throw new FailedArgumentException("Invalid conditions argument value");
+        }
+        return $this->model->where($conditions[0], $conditions[1], $conditions[2])->simplePaginate($limit, $columns);
+    }
+
+    public function simplePaginateSortBy(string $column, string $type = 'asc', int $limit = null, array $columns = ['*'])
+    {
+        return $this->model->orderBy($column, $type)->simplePaginate($limit, $columns);
     }
 
     public function insert(array $data)
@@ -146,6 +185,9 @@ abstract class Repository implements RepositoryInterface {
 
     public function updateBy(array $conditions, array $data)
     {
+        if (count($conditions) != 3) {
+            throw new FailedArgumentException("Invalid conditions argument value");
+        }
         $model = $this->model->where($conditions[0], $conditions[1], $conditions[2])->get();
         foreach ($model as $m) {
             $m = $this->fill($data, $m);
@@ -166,6 +208,9 @@ abstract class Repository implements RepositoryInterface {
 
     public function deleteBy(array $conditions)
     {
+        if (count($conditions) != 3) {
+            throw new FailedArgumentException("Invalid conditions argument value");
+        }
         $model = $this->model->where($conditions[0], $conditions[1], $conditions[2]);
         if ($model) {
             $model->delete();

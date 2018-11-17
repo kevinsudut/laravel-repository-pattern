@@ -4,6 +4,7 @@ namespace App\Domains\Auth;
 
 use App\Domains\Core\Repository;
 use App\Model\Auth\User;
+use Illuminate\Database\Eloquent\Model;
 
 class UserRepository extends Repository
 {
