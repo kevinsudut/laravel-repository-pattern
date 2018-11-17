@@ -61,7 +61,7 @@ abstract class Repository implements RepositoryInterface {
 
     public function getLastInserted(array $columns = ['*'])
     {
-        return $this->model->orderBy('created_at', 'asc')->first($columns);
+        return $this->model->orderWhere('created_at', 'asc')->first($columns);
     }
 
     public function getAll(array $columns = ['*'])
@@ -71,7 +71,7 @@ abstract class Repository implements RepositoryInterface {
 
     public function getAllSortBy(string $column, string $type = 'asc', array $columns = ['*'])
     {
-        return $this->model->orderBy($column, $type)->get($columns);
+        return $this->model->orderWhere($column, $type)->get($columns);
     }
 
     public function getById($id, array $columns = ['*'])
@@ -79,7 +79,7 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->find($id, $columns);
     }
 
-    public function getAllBy(array $conditions, array $columns = ['*'])
+    public function getAllWhere(array $conditions, array $columns = ['*'])
     {
         if (count($conditions) != 3) {
             throw new FailedArgumentException("Invalid conditions argument value");
@@ -87,7 +87,7 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->where($conditions[0], $conditions[1], $conditions[2])->get($columns);
     }
 
-    public function getOneBy(array $conditions, array $columns = ['*'])
+    public function getOneWhere(array $conditions, array $columns = ['*'])
     {
         if (count($conditions) != 3) {
             throw new FailedArgumentException("Invalid conditions argument value");
@@ -102,7 +102,7 @@ abstract class Repository implements RepositoryInterface {
 
     public function getAllWithSortBy(string $relations, string $column, string $type = 'asc', array $columns = ['*'])
     {
-        return $this->model->with($relations)->orderBy($column, $type)->get($columns);
+        return $this->model->with($relations)->orderWhere($column, $type)->get($columns);
     }
 
     public function getByIdWith($id, string $relations, array $columns = ['*'])
@@ -110,7 +110,7 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->with($relations)->find($id, $columns);
     }
 
-    public function getAllWithBy(string $relations, array $conditions, array $columns = ['*'])
+    public function getAllWithWhere(string $relations, array $conditions, array $columns = ['*'])
     {
         if (count($conditions) != 3) {
             throw new FailedArgumentException("Invalid conditions argument value");
@@ -118,7 +118,7 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->with($relations)->where($conditions[0], $conditions[1], $conditions[2])->get($columns);
     }
 
-    public function getOneWithBy(string $relations, array $conditions, array $columns = ['*'])
+    public function getOneWithWhere(string $relations, array $conditions, array $columns = ['*'])
     {
         if (count($conditions) != 3) {
             throw new FailedArgumentException("Invalid conditions argument value");
@@ -126,9 +126,9 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->with($relations)->where($conditions[0], $conditions[1], $conditions[2])->first($columns);
     }
 
-    public function has(string $relations)
+    public function has(string $value)
     {
-        return $this->model->has($relations);
+        return $this->model->has($value);
     }
 
     public function paginate($limit = null, array $columns = ['*'])
@@ -136,7 +136,7 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->paginate($limit, $columns);
     }
 
-    public function paginateBy(array $conditions, int $limit = null, array $columns = ['*'])
+    public function paginateWhere(array $conditions, int $limit = null, array $columns = ['*'])
     {
         if (count($conditions) != 3) {
             throw new FailedArgumentException("Invalid conditions argument value");
@@ -146,7 +146,7 @@ abstract class Repository implements RepositoryInterface {
 
     public function paginateSortBy(string $column, string $type = 'asc', int $limit = null, array $columns = ['*'])
     {
-        return $this->model->orderBy($column, $type)->paginate($limit, $columns);
+        return $this->model->orderWhere($column, $type)->paginate($limit, $columns);
     }
 
     public function simplePaginate($limit = null, array $columns = ['*'])
@@ -154,7 +154,7 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->simplePaginate($limit, $columns);
     }
 
-    public function simplePaginateBy(array $conditions, int $limit = null, array $columns = ['*'])
+    public function simplePaginateWhere(array $conditions, int $limit = null, array $columns = ['*'])
     {
         if (count($conditions) != 3) {
             throw new FailedArgumentException("Invalid conditions argument value");
@@ -162,9 +162,9 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->where($conditions[0], $conditions[1], $conditions[2])->simplePaginate($limit, $columns);
     }
 
-    public function simplePaginateSortBy(string $column, string $type = 'asc', int $limit = null, array $columns = ['*'])
+    public function simplePaginateSortWhere(string $column, string $type = 'asc', int $limit = null, array $columns = ['*'])
     {
-        return $this->model->orderBy($column, $type)->simplePaginate($limit, $columns);
+        return $this->model->orderWhere($column, $type)->simplePaginate($limit, $columns);
     }
 
     public function insert(array $data)
@@ -189,7 +189,7 @@ abstract class Repository implements RepositoryInterface {
         return null;
     }
 
-    public function updateBy(array $conditions, array $data)
+    public function updateWhere(array $conditions, array $data)
     {
         if (count($conditions) != 3) {
             throw new FailedArgumentException("Invalid conditions argument value");
@@ -212,7 +212,7 @@ abstract class Repository implements RepositoryInterface {
         return false;
     }
 
-    public function deleteBy(array $conditions)
+    public function deleteWhere(array $conditions)
     {
         if (count($conditions) != 3) {
             throw new FailedArgumentException("Invalid conditions argument value");

@@ -95,7 +95,7 @@ interface RepositoryInterface {
      *
      * @return mixed collections from \Illuminate\Database\Eloquent\Model
      */
-    public function getAllBy(array $conditions, array $columns = ['*']);
+    public function getAllWhere(array $conditions, array $columns = ['*']);
 
     /**
      * Function get one record data from database with spesific conditions
@@ -105,7 +105,7 @@ interface RepositoryInterface {
      *
      * @return mixed collections from \Illuminate\Database\Eloquent\Model
      */
-    public function getOneBy(array $conditions, array $columns = ['*']);
+    public function getOneWhere(array $conditions, array $columns = ['*']);
 
     /**
      * Function get all of records data from database with the relationship
@@ -149,7 +149,7 @@ interface RepositoryInterface {
      *
      * @return mixed collections from \Illuminate\Database\Eloquent\Model
      */
-    public function getAllWithBy(string $relations, array $conditions, array $columns = ['*']);
+    public function getAllWithWhere(string $relations, array $conditions, array $columns = ['*']);
 
     /**
      * Function get one record data from database with spesific conditions and the relationship
@@ -160,16 +160,16 @@ interface RepositoryInterface {
      *
      * @return mixed collections from \Illuminate\Database\Eloquent\Model
      */
-    public function getOneWithBy(string $relations, array $conditions, array $columns = ['*']);
+    public function getOneWithWhere(string $relations, array $conditions, array $columns = ['*']);
 
     /**
-     * Function to check the eloquent model has the relations
+     * Function to check the eloquent model has value
      *
-     * @param string $relations relations name
+     * @param string $value value name
      *
      * @return void
      */
-    public function has(string $relations);
+    public function has(string $value);
 
     /**
      * Function to paginate data with paginate() function from eloquent model
@@ -190,7 +190,7 @@ interface RepositoryInterface {
      *
      * @return mixed collections from \Illuminate\Database\Eloquent\Model
      */
-    public function paginateBy(array $conditions, int $limit = null, array $columns = ['*']);
+    public function paginateWhere(array $conditions, int $limit = null, array $columns = ['*']);
 
     /**
      * Function to paginate data with paginate() function from eloquent model with spesific sort value
@@ -223,7 +223,7 @@ interface RepositoryInterface {
      *
      * @return mixed collections from \Illuminate\Database\Eloquent\Model
      */
-    public function simplePaginateBy(array $conditions, int $limit = null, array $columns = ['*']);
+    public function simplePaginateWhere(array $conditions, int $limit = null, array $columns = ['*']);
 
     /**
      * Function to paginate data with paginate() function from eloquent model with spesific sort value
@@ -274,7 +274,7 @@ interface RepositoryInterface {
      *
      * @return mixed collections from \Illuminate\Database\Eloquent\Model
      */
-    public function updateBy(array $conditions, array $data);
+    public function updateWhere(array $conditions, array $data);
 
     /**
      * Function to delete data by id
@@ -292,6 +292,6 @@ interface RepositoryInterface {
      *
      * @return boolean
      */
-    public function deleteBy(array $conditions);
+    public function deleteWhere(array $conditions);
 
 }
