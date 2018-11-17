@@ -8,17 +8,13 @@ use Illuminate\Support\Facades\Route;
 class GuestRoute extends BaseRoute
 {
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    public function route()
+    public static function route()
     {
         Route::group(['middleware' => ['guest']], function () {
             Route::get('/', function() {
                 return view('welcome');
             });
+            Route::get('/product', 'Product\ProductController@index');
         });
     }
 

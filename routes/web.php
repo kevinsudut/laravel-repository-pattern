@@ -14,9 +14,16 @@
 use App\Http\Routes\AuthRoute;
 use App\Http\Routes\GuestRoute;
 
-$guest = new GuestRoute();
-$guest->route();
+/**
+ * Register all route with guest middelware
+ *
+ * Change route at \App\Htpp\Routes\GuestRoute
+ */
+GuestRoute::route();
 
-$auth = new AuthRoute();
-$auth->route();
-
+/**
+ * Register all route with auth middelware
+ *
+ * Change route at \App\Htpp\Routes\AuthRoute
+ */
+AuthRoute::route();

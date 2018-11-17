@@ -7,9 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class Repository implements RepositoryInterface {
 
+    /**
+     * @var \Illuminate\Database\Eloquent\Model;
+     */
     protected $model = null;
+
+    /**
+     * @var $guid
+     *
+     * Change true if the primary key is using guid
+     * Change false if the primary key is auto increment
+     */
     private $guid = true;
 
+    /**
+     * Constructor function of Repository
+     *
+     * @param \Illuminate\Database\Eloquent\Model
+     *
+     * @return void
+     */
     public function __construct(Model $model)
     {
         $this->model = $model;
@@ -20,9 +37,14 @@ abstract class Repository implements RepositoryInterface {
         return $this->model;
     }
 
-    public function setModel()
+    public function setModel(Model $model)
     {
-        $this->model = $this->model();
+        $this->model = $model;
+    }
+
+    public function setNewModel()
+    {
+        $this->model = $this->newModel();
     }
 
     public function count()
@@ -40,7 +62,7 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->all($columns);
     }
 
-    public function getAllSortBy($column, $type, array $columns = ['*'])
+    public function getAllSortBy(string $column, string $type = 'asc', array $columns = ['*'])
     {
         return $this->model->orderBy($column, $type)->get($columns);
     }
@@ -60,39 +82,44 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->where($conditions[0], $conditions[1], $conditions[2])->first($columns);
     }
 
-    public function getAllWith($relations, array $columns = ['*'])
+    public function getAllWith(string $relations, array $columns = ['*'])
     {
         return $this->model->with($relations)->get($columns);
     }
 
-    public function getAllWithSortBy($relations, $column, $type, array $columns = ['*'])
+    public function getAllWithSortBy(string $relations, string $column, $type = 'asc', array $columns = ['*'])
     {
         return $this->model->with($relations)->orderBy($column, $type)->get($columns);
     }
 
-    public function getByIdWith($id, $relations, array $columns = ['*'])
+    public function getByIdWith($id, string $relations, array $columns = ['*'])
     {
         return $this->model->with($relations)->find($id, $columns);
     }
 
-    public function getAllWithBy($relations, array $conditions, array $columns = ['*'])
+    public function getAllWithBy(string $relations, array $conditions, array $columns = ['*'])
     {
         return $this->model->with($relations)->where($conditions[0], $conditions[1], $conditions[2])->get($columns);
     }
 
-    public function getOneWithBy($relations, array $conditions, array $columns = ['*'])
+    public function getOneWithBy(string $relations, array $conditions, array $columns = ['*'])
     {
         return $this->model->with($relations)->where($conditions[0], $conditions[1], $conditions[2])->first($columns);
     }
 
-    public function paginate($limit = 1, array $columns = ['*'])
+    public function has(string $relations)
     {
-        return $this->model->paginate(1, $columns);
+        return $this->model->has($relations);
     }
 
-    public function simplePaginate($limit = 1, array $columns = ['*'])
+    public function paginate($limit = null, array $columns = ['*'])
     {
-        return $this->model->simplePaginate(1, $columns);
+        return $this->model->paginate($limit, $columns);
+    }
+
+    public function simplePaginate($limit = null, array $columns = ['*'])
+    {
+        return $this->model->simplePaginate($limit, $columns);
     }
 
     public function insert(array $data)

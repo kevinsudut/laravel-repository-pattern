@@ -6,9 +6,4 @@ use Illuminate\Routing\Route;
 
 abstract class BaseRoute implements RouteInterface {
 
-    public function __construct()
-    {
-
-    }
-
 }

@@ -3,33 +3,31 @@
 namespace App\Domains\Product;
 
 use App\Domains\Core\Repository;
-use App\Model\Product;
+use App\Model\Category;
 
-class ProductRepository extends Repository
+class CategoryRepository extends Repository
 {
 
     /**
-     * Constructor function of ProductRepository
+     * Constructor function of CategoryRepository
      *
      * @param \Illuminate\Database\Eloquent\Model
      *
      * @return void
      */
-    public function __construct(Product $model)
+    public function __construct(Category $model)
     {
         parent::__construct($model);
     }
 
     public function newModel()
     {
-        return new Product();
+        return new Category();
     }
 
     public function fill(array $data, Model $model)
     {
         $model->name = $data['name'];
-        $model->category_id = $data['category'];
-        $model->price = $data['price'];
         return $model;
     }
 

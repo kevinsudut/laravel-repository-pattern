@@ -9,6 +9,6 @@ interface RouteInterface {
      *
      * @return void
      */
-    public function route();
+    public static function route();
 
 }
