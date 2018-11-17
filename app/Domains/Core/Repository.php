@@ -162,7 +162,7 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->where($conditions[0], $conditions[1], $conditions[2])->simplePaginate($limit, $columns);
     }
 
-    public function simplePaginateSortWhere(string $column, string $type = 'asc', int $limit = null, array $columns = ['*'])
+    public function simplePaginateSortBy(string $column, string $type = 'asc', int $limit = null, array $columns = ['*'])
     {
         return $this->model->orderWhere($column, $type)->simplePaginate($limit, $columns);
     }
