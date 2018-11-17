@@ -8,7 +8,14 @@ use App\Model\Auth\User;
 class UserRepository extends Repository
 {
 
-    public function __construct(Product $model)
+    /**
+     * Constructor function of UserRepository
+     *
+     * @param \Illuminate\Database\Eloquent\Model
+     *
+     * @return void
+     */
+    public function __construct(User $model)
     {
         parent::__construct($model);
     }
@@ -18,7 +25,7 @@ class UserRepository extends Repository
         return new User();
     }
 
-    public function fill(array $data, $model)
+    public function fill(array $data, Model $model)
     {
         $model->name = $data['name'];
         $model->email = $data['email'];
