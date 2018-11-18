@@ -131,7 +131,7 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->has($value);
     }
 
-    public function paginate($limit = null, array $columns = ['*'])
+    public function paginate(int $limit = null, array $columns = ['*'])
     {
         return $this->model->paginate($limit, $columns);
     }
@@ -149,7 +149,7 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->orderBy($column, $type)->paginate($limit, $columns);
     }
 
-    public function simplePaginate($limit = null, array $columns = ['*'])
+    public function simplePaginate(int $limit = null, array $columns = ['*'])
     {
         return $this->model->simplePaginate($limit, $columns);
     }
