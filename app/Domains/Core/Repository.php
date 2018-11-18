@@ -61,7 +61,7 @@ abstract class Repository implements RepositoryInterface {
 
     public function getLastInserted(array $columns = ['*'])
     {
-        return $this->model->orderWhere('created_at', 'asc')->first($columns);
+        return $this->model->orderBy('created_at', 'asc')->first($columns);
     }
 
     public function getAll(array $columns = ['*'])
@@ -71,7 +71,7 @@ abstract class Repository implements RepositoryInterface {
 
     public function getAllSortBy(string $column, string $type = 'asc', array $columns = ['*'])
     {
-        return $this->model->orderWhere($column, $type)->get($columns);
+        return $this->model->orderBy($column, $type)->get($columns);
     }
 
     public function getById($id, array $columns = ['*'])
@@ -102,7 +102,7 @@ abstract class Repository implements RepositoryInterface {
 
     public function getAllWithSortBy(string $relations, string $column, string $type = 'asc', array $columns = ['*'])
     {
-        return $this->model->with($relations)->orderWhere($column, $type)->get($columns);
+        return $this->model->with($relations)->orderBy($column, $type)->get($columns);
     }
 
     public function getByIdWith($id, string $relations, array $columns = ['*'])
@@ -146,7 +146,7 @@ abstract class Repository implements RepositoryInterface {
 
     public function paginateSortBy(string $column, string $type = 'asc', int $limit = null, array $columns = ['*'])
     {
-        return $this->model->orderWhere($column, $type)->paginate($limit, $columns);
+        return $this->model->orderBy($column, $type)->paginate($limit, $columns);
     }
 
     public function simplePaginate($limit = null, array $columns = ['*'])
@@ -164,7 +164,7 @@ abstract class Repository implements RepositoryInterface {
 
     public function simplePaginateSortBy(string $column, string $type = 'asc', int $limit = null, array $columns = ['*'])
     {
-        return $this->model->orderWhere($column, $type)->simplePaginate($limit, $columns);
+        return $this->model->orderBy($column, $type)->simplePaginate($limit, $columns);
     }
 
     public function insert(array $data)
