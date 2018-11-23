@@ -98,6 +98,18 @@ interface RepositoryInterface {
     public function getAllWhere(array $conditions, array $columns = ['*']);
 
     /**
+     * Function get all of records data from database with spesific conditions
+     *
+     * @param array $conditions conditions value, must be 3 data in the array. Ex. ['category_id', '=', '1'] ['name', 'like', '%S%']
+     * @param string $column to sorting by spesific column
+     * @param string $type sorting in ascending or descending, the default value is ascending
+     * @param array $columns to retrieve spesific column with the objects
+     *
+     * @return mixed collections from \Illuminate\Database\Eloquent\Model
+     */
+    public function getAllWhereSortBy(array $conditions, string $column, string $type = 'asc', array $columns = ['*']);
+
+    /**
      * Function get one record data from database with spesific conditions
      *
      * @param array $conditions conditions value, must be 3 data in the array. Ex. ['category_id', '=', '1'] ['name', 'like', '%S%']
@@ -106,6 +118,18 @@ interface RepositoryInterface {
      * @return mixed collections from \Illuminate\Database\Eloquent\Model
      */
     public function getOneWhere(array $conditions, array $columns = ['*']);
+
+    /**
+     * Function get all of records data from database with spesific conditions
+     *
+     * @param array $conditions conditions value, must be 3 data in the array. Ex. ['category_id', '=', '1'] ['name', 'like', '%S%']
+     * @param string $column to sorting by spesific column
+     * @param string $type sorting in ascending or descending, the default value is ascending
+     * @param array $columns to retrieve spesific column with the objects
+     *
+     * @return mixed collections from \Illuminate\Database\Eloquent\Model
+     */
+    public function getOneWhereSortBy(array $conditions, string $column, string $type = 'asc', array $columns = ['*']);
 
     /**
      * Function get all of records data from database with the relationship

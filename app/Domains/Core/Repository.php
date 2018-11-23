@@ -25,7 +25,15 @@ abstract class Repository implements RepositoryInterface {
      * Change true if the primary key is using guid
      * Change false if the primary key is auto increment
      */
-    private $guid = true;
+    protected $guid = true;
+
+    /**
+     * @var $guid
+     *
+     * Change true if the model have id attribute
+     * Change false if the model not have id attribute
+     */
+    protected $hasIdAttribute = true;
 
     /**
      * Constructor function of Repository
@@ -61,7 +69,7 @@ abstract class Repository implements RepositoryInterface {
 
     public function getLastInserted(array $columns = ['*'])
     {
-        return $this->model->orderBy('created_at', 'asc')->first($columns);
+        return $this->model->orderBy('created_at', 'desc')->first($columns);
     }
 
     public function getAll(array $columns = ['*'])
@@ -87,12 +95,28 @@ abstract class Repository implements RepositoryInterface {
         return $this->model->where($conditions[0], $conditions[1], $conditions[2])->get($columns);
     }
 
+    public function getAllWhereSortBy(array $conditions, string $column, string $type = 'asc', array $columns = ['*'])
+    {
+        if (count($conditions) != 3) {
+            throw new FailedArgumentException("Invalid conditions argument value");
+        }
+        return $this->model->where($conditions[0], $conditions[1], $conditions[2])->orderBy($column, $type)->get($columns);
+    }
+
     public function getOneWhere(array $conditions, array $columns = ['*'])
     {
         if (count($conditions) != 3) {
             throw new FailedArgumentException("Invalid conditions argument value");
         }
         return $this->model->where($conditions[0], $conditions[1], $conditions[2])->first($columns);
+    }
+
+    public function getOneWhereSortBy(array $conditions, string $conlumn, string $type = 'asc', array $columns = ['*'])
+    {
+        if (count($conditions) != 3) {
+            throw new FailedArgumentException("Invalid conditions argument value");
+        }
+        return $this->model->where($conditions[0], $conditions[1], $conditions[2])->orderBy($column, $type)->first($columns);
     }
 
     public function getAllWith(string $relations, array $columns = ['*'])
@@ -170,7 +194,7 @@ abstract class Repository implements RepositoryInterface {
     public function insert(array $data)
     {
         $model = $this->newModel();
-        if ($this->guid) {
+        if ($this->guid && $this->hasIdAttribute) {
             $model->id = GUID::generate();
         }
         $model = $this->fill($data, $model);

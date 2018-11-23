@@ -2,9 +2,9 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Model\Core\ModelUUID;
 
-class Category extends Model
+class Category extends ModelUUID
 {
     public function products()
     {
