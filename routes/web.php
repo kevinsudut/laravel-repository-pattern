@@ -27,7 +27,3 @@ GuestRoute::route();
  * Change route at \App\Htpp\Routes\AuthRoute
  */
 AuthRoute::route();
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

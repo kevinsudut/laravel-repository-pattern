@@ -9,12 +9,11 @@
 namespace App\Domains\Product;
 
 use App\Domains\Core\Repository;
-use App\Model\Product;
+use App\Model\Product\Product;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductRepository extends Repository
 {
-
     /**
      * Constructor function of ProductRepository
      *
@@ -39,5 +38,4 @@ class ProductRepository extends Repository
         $model->price = $data['price'];
         return $model;
     }
-
 }

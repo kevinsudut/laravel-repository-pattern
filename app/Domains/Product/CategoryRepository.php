@@ -9,12 +9,11 @@
 namespace App\Domains\Product;
 
 use App\Domains\Core\Repository;
-use App\Model\Category;
+use App\Model\Product\Category;
 use Illuminate\Database\Eloquent\Model;
 
 class CategoryRepository extends Repository
 {
-
     /**
      * Constructor function of CategoryRepository
      *
@@ -37,5 +36,4 @@ class CategoryRepository extends Repository
         $model->name = $data['name'];
         return $model;
     }
-
 }

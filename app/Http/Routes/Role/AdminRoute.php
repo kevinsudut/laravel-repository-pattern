@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 
 class AdminRoute extends BaseRoute
 {
-
     public static function route()
     {
         Route::group(['middleware' => ['']], function () {
@@ -22,5 +21,4 @@ class AdminRoute extends BaseRoute
             });
         });
     }
-
 }

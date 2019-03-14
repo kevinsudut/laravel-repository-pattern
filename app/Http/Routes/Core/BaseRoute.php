@@ -8,8 +8,7 @@
 
 namespace App\Http\Routes\Core;
 
-use Illuminate\Routing\Route;
-
-abstract class BaseRoute implements RouteInterface {
+abstract class BaseRoute implements RouteInterface
+{
 
 }

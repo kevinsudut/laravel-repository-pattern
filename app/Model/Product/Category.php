@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace App\Model\Product;
 
 use App\Model\Core\ModelUUID;
 

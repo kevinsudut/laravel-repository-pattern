@@ -10,8 +10,8 @@ namespace App\Domains\Core;
 
 use Illuminate\Database\Eloquent\Model;
 
-interface RepositoryInterface {
-
+interface RepositoryInterface
+{
     /**
      * Function new model to create new instance of model
      *
@@ -318,4 +318,31 @@ interface RepositoryInterface {
      */
     public function deleteWhere(array $conditions);
 
+    /**
+     * Function get soft deleted record data by id from database
+     *
+     * @param $id primary key
+     * @param array $columns to retrieve spesific column with the objects
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function getByIdOnlyTrashed($id, array $columns = ['*']);
+
+    /**
+     * Function restore soft deleted record data by id from database
+     *
+     * @param $id primary key
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function restore($id);
+
+    /**
+     * Function to force delete data by id
+     *
+     * @param $id primary key
+     *
+     * @return boolean
+     */
+    public function forceDelete($id);
 }

@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Model;
+namespace App\Model\Product;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Model\Core\ModelUUID;
 
 class Product extends ModelUUID

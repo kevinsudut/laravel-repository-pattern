@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserRepository extends Repository
 {
-
     /**
      * Constructor function of UserRepository
      *
@@ -39,5 +38,4 @@ class UserRepository extends Repository
         $model->password = bcrypt($data['password']);
         return $model;
     }
-
 }

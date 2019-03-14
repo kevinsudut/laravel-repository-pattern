@@ -2,39 +2,35 @@
 
 namespace App\Http\Controllers\Product;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Domains\Product\ProductRepository;
-use App\Domains\Product\CategoryRepository;
+use App\Handler\ProductHandler;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     /**
-     * @var \App\Domains\Product\ProductRepository
+     * @var \App\Handler\ProductHandler
      */
-    private $productRepository = null;
-
-    /**
-     * @var \App\Domains\Product\CategoryRepository
-     */
-    private $categoryRepository = null;
+    private $productHandler = null;
 
     /**
      * Constructor function of ProductController
      *
-     * @param all repository that would be used in this class
+     * @param all handler class that would be used in this class
      *
      * @return void
      */
-    public function __construct(ProductRepository $productRepository, CategoryRepository $categoryRepository)
+    public function __construct(ProductHandler $productHandler)
     {
-        $this->productRepository = $productRepository;
-        $this->categoryRepository = $categoryRepository;
+        $this->productHandler = $productHandler;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        // Example how to use CategoryRepository using handler class
+        $this->productHandler->repository('category')->getAll();
 
+        // Example to how use ProductRepository using handler class
+        $this->productHandler->repository('product')->getAll();
     }
-
 }

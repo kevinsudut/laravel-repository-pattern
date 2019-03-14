@@ -12,8 +12,8 @@ use App\Helpers\GUID;
 use Illuminate\Database\Eloquent\Model;
 use App\Domains\Core\Exceptions\FailedArgumentException;
 
-abstract class Repository implements RepositoryInterface {
-
+abstract class Repository implements RepositoryInterface
+{
     /**
      * @var \Illuminate\Database\Eloquent\Model;
      */
@@ -28,7 +28,7 @@ abstract class Repository implements RepositoryInterface {
     protected $guid = true;
 
     /**
-     * @var $guid
+     * @var $hasIdAttribute
      *
      * Change true if the model have id attribute
      * Change false if the model not have id attribute
@@ -249,4 +249,28 @@ abstract class Repository implements RepositoryInterface {
         return false;
     }
 
+    public function getByIdOnlyTrashed($id, array $columns = ['*'])
+    {
+        return $this->model->onlyTrashed()->find($id, $columns);
+    }
+
+    public function restore($id)
+    {
+        $model = $this->getByIdOnlyTrashed($id);
+        if ($model) {
+            $model->restore();
+            return $model;
+        }
+        return null;
+    }
+
+    public function forceDelete($id)
+    {
+        $model = $this->model->withTrashed()->find($id);
+        if ($model) {
+            $model->forceDelete();
+            return true;
+        }
+        return false;
+    }
 }

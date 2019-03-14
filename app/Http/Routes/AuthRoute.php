@@ -9,18 +9,19 @@
 namespace App\Http\Routes;
 
 use App\Http\Routes\Core\BaseRoute;
-use Illuminate\Support\Facades\Route;
+use App\Http\Routes\Interfaces\AuthRouteInterface;
 use App\Http\Routes\Role\AdminRoute;
+use Illuminate\Support\Facades\Route;
 
 class AuthRoute extends BaseRoute implements AuthRouteInterface
 {
-
     public static function route()
     {
         Route::group(['middleware' => ['auth']], function () {
             Route::get('/auth', function() {
                 return view('welcome');
             });
+            Route::get('/home', 'HomeController@index')->name('home');
             self::authRoute();
         });
     }
@@ -29,5 +30,4 @@ class AuthRoute extends BaseRoute implements AuthRouteInterface
     {
         AdminRoute::route();
     }
-
 }
